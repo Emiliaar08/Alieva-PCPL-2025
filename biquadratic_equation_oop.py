@@ -4,96 +4,157 @@ import math
 class SquareRoots:
 
     def __init__(self):
-        '''
-        Конструктор класса
-        '''
-        # Объявление коэффициентов
+
         self.coef_A = 0.0
         self.coef_B = 0.0
         self.coef_C = 0.0
-        # Количество корней
         self.num_roots = 0
-        # Список корней
         self.roots_list = []
 
     def get_coef(self, index, prompt):
-        '''
-        Читаем коэффициент из командной строки или вводим с клавиатуры
-        Args:
-            index (int): Номер параметра в командной строке
-            prompt (str): Приглашение для ввода коэффицента
-        Returns:
-            float: Коэффициент квадратного уравнения
-        '''
+        
         try:
-            # Пробуем прочитать коэффициент из командной строки
             coef_str = sys.argv[index]
+            coef = float(coef_str)
         except:
-            # Вводим с клавиатуры
-            print(prompt)
-            coef_str = input()
-        # Переводим строку в действительное число
-        coef = float(coef_str)
+            while(True):
+                print(prompt)
+                coef_str = input()
+                try:
+                    coef = float(coef_str)
+                    break
+                except:
+                    print("Введено некорректное значение, введите действительное число")
+                
         return coef
 
     def get_coefs(self):
-        '''
-        Чтение трех коэффициентов
-        '''
+
         self.coef_A = self.get_coef(1, 'Введите коэффициент А:')
         self.coef_B = self.get_coef(2, 'Введите коэффициент B:')
         self.coef_C = self.get_coef(3, 'Введите коэффициент C:')
 
     def calculate_roots(self):
-        '''
-        Вычисление корней квадратного уравнения
-        '''
-        a = self.coef_A
-        b = self.coef_B
-        c = self.coef_C
-        # Вычисление дискриминанта и корней
-        D = b*b - 4*a*c
-        if D == 0.0:
-            root = -b / (2.0*a)
-            self.num_roots = 1
-            self.roots_list.append(root)
-        elif D > 0.0:
-            sqD = math.sqrt(D)
-            root1 = (-b + sqD) / (2.0*a)
-            root2 = (-b - sqD) / (2.0*a)
-            self.num_roots = 2
-            self.roots_list.append(root1)
-            self.roots_list.append(root2)
+      
+        self.num_roots = 0
+        self.roots_list = []
+
+        if self.coef_A == 0:
+            if self.coef_B == 0:
+                if self.coef_C == 0:
+                    self.roots_list = ["Бесконечное множество корней"]
+                    self.num_roots = 0
+                else:
+                    self.roots_list = ["Нет корней"]
+                    self.num_roots = 0
+            else:
+                if self.coef_C == 0:
+                    self.roots_list.append(0)
+                    self.num_roots = 1 
+                else:
+                    x = (- self.coef_C) / self.coef_B
+                    if x > 0:
+                        self.roots_list.append(math.sqrt(x))
+                        self.roots_list.append(- math.sqrt(x))
+                        self.num_roots = 2
+                    elif x == 0:
+                        self.roots_list.append(0)
+                        self.num_roots = 1
+                    else:
+                        self.roots_list = ["Нет корней"]
+                        self.num_roots = 0
+        else:
+            if self.coef_B == 0:
+                if self.coef_C == 0: 
+                    self.roots_list.append(0)
+                    self.num_roots = 1
+                else:
+                    fourth_degree = (- self.coef_C) / self.coef_A
+                    if fourth_degree < 0:                        
+                        self.roots_list = ["Нет корней"]
+                        self.num_roots = 0
+                    else:
+                        x = math.sqrt(fourth_degree)
+                        if x == 0:                          
+                            self.roots_list.append(0)
+                            self.num_roots = 1
+                        else:                            
+                            self.roots_list.append(math.sqrt(x))
+                            self.roots_list.append(- math.sqrt(x))
+                            self.num_roots = 2
+            else:
+                if self.coef_C == 0:                   
+                    self.roots_list.append(0)
+                    self.num_roots = 1
+                    x = (- self.coef_B) / self.coef_A
+                    if x > 0:                      
+                        self.roots_list.append(math.sqrt(x))
+                        self.roots_list.append(- math.sqrt(x))
+                        self.num_roots = 3
+                else:
+                    discriminant = self.coef_B ** 2 - 4 * self.coef_A * self.coef_C
+                    if discriminant < 0:                       
+                        self.roots_list = ["Нет корней"]
+                        self.num_roots = 0
+                    elif discriminant == 0:
+                        t = (- self.coef_B) / (2 * self.coef_A)
+                        if t > 0:                           
+                            self.roots_list.append(math.sqrt(t))
+                            self.roots_list.append(- math.sqrt(t))
+                            self.num_roots = 2
+                        elif t == 0:                           
+                            self.roots_list.append(0)
+                            self.num_roots = 1
+                        else:                           
+                            self.roots_list = ["Нет корней"]
+                            self.num_roots = 0
+                    else:
+                        t1 = (- self.coef_B + math.sqrt(discriminant)) / (2 * self.coef_A)
+                        t2 = (- self.coef_B - math.sqrt(discriminant)) / (2 * self.coef_A)
+                        self.roots_list = []
+                        self.num_roots = 0
+                        if t1 > 0:                          
+                            self.roots_list.append(math.sqrt(t1))
+                            self.roots_list.append(- math.sqrt(t1))
+                            self.num_roots += 2
+                        elif t1 == 0:                           
+                            self.roots_list.append(0)
+                            self.num_roots += 1
+                        if t2 > 0:                           
+                            self.roots_list.append(math.sqrt(t2))
+                            self.roots_list.append(- math.sqrt(t2))
+                            self.num_roots += 2
+                        elif t2 == 0 and t1 != 0:                           
+                            self.roots_list.append(0)
+                            self.num_roots += 1                      
+                        if t1 < 0 and t2 < 0:
+                            self.roots_list = ["Нет корней"]
+                            self.num_roots = 0
 
     def print_roots(self):
-        # Проверка отсутствия ошибок при вычислении корней
-        if self.num_roots != len(self.roots_list):
-            print(('Ошибка. Уравнение содержит {} действительных корней, ' +\
-                'но было вычислено {} корней.').format(self.num_roots, len(self.roots_list)))
-        else:
+        if len(self.roots_list) == 1 and isinstance(self.roots_list[0], str):
             if self.num_roots == 0:
-                print('Нет корней')
-            elif self.num_roots == 1:
-                print('Один корень: {}'.format(self.roots_list[0]))
-            elif self.num_roots == 2:
-                print('Два корня: {} и {}'.format(self.roots_list[0], \
-                    self.roots_list[1]))
+                print(self.roots_list[0])
+            else:
+                print("Произошла ошибка: несоответствие между количеством корней и списком корней")
+        else:
+            if self.num_roots == len(self.roots_list):
+                if self.num_roots == 0:
+                    print("Нет корней")
+                else:
+                    print("Корни:", self.roots_list)
+            else:
+                print("Произошла ошибка: несоответствие между количеством корней и списком корней")
+
 
 
 def main():
-    '''
-    Основная функция
-    '''
-    # Создание объекта класса
+
     r = SquareRoots()
-    # Последовательный вызов необходимых методов
+    r.roots_list = []
     r.get_coefs()
     r.calculate_roots()
     r.print_roots()
 
-# Если сценарий запущен из командной строки
 if __name__ == "__main__":
     main()
-
-# Пример запуска
-# roots_oop.py 1 0 -4
