@@ -7,15 +7,13 @@ class FigureColor:
     def __init__(self):
         self._color = None
 
-    @property
-    def colorproperty(self):
+    def get_color(self):
         """
         Get-аксессор
         """
         return self._color
 
-    @colorproperty.setter
-    def colorproperty(self, value):
+    def set_color(self, value):
         """
         Set-аксессор
         """

@@ -8,19 +8,19 @@ class Rectangle(Figure):
     """
     FIGURE_TYPE = "Прямоугольник"
 
-    @classmethod
-    def get_figure_type(cls):
-        return cls.FIGURE_TYPE
-
-    def __init__(self, color_param, width_param, height_param):
+    def __init__(self, color_parameter, width_parameter, height_parameter):
         """
         Класс должен содержать конструктор по параметрам «ширина», «высота» и «цвет». В конструкторе создается объект класса «Цвет фигуры» для хранения цвета.
         """
-        self.width = width_param
-        self.height = height_param
-        self.fc = FigureColor()
-        self.fc.colorproperty = color_param
+        self.width = width_parameter
+        self.height = height_parameter
+        self.figure_color = FigureColor()
+        self.figure_color.set_color(color_parameter)
 
+    @classmethod
+    def get_name(cls):
+        return cls.FIGURE_TYPE
+    
     def square(self):
         """
         Класс должен переопределять метод, вычисляющий площадь фигуры.
@@ -29,8 +29,8 @@ class Rectangle(Figure):
 
     def __repr__(self):
         return '{} {} цвета шириной {} и высотой {} площадью {}.'.format(
-            Rectangle.get_figure_type(),
-            self.fc.colorproperty,
+            Rectangle.get_name(),
+            self.figure_color.get_color(),
             self.width,
             self.height,
             self.square()

@@ -11,3 +11,10 @@ class Figure(ABC):
         содержит виртуальный метод для вычисления площади фигуры.
         """
         pass
+    @classmethod
+    @abstractmethod
+    def get_name(cls):
+        pass
+    @abstractmethod
+    def __repr__(self):
+        pass

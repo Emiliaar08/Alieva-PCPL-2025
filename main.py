@@ -4,12 +4,12 @@ from lab_python_oop.square import Square
 
 
 def main():
-    r = Rectangle("синего", 3, 2)
-    c = Circle("зеленого", 5)
-    s = Square("красного", 5)
-    print(r)
-    print(c)
-    print(s)
+    rectangle = Rectangle("синего", 1, 1)
+    circle = Circle("зеленого", 1)
+    square = Square("красного", 1)
+    print(rectangle)
+    print(circle)
+    print(square)
 
 if __name__ == "__main__":
     main()
