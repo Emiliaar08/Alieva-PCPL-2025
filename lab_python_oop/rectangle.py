@@ -3,35 +3,37 @@ from lab_python_oop.color import FigureColor
 
 
 class Rectangle(Figure):
-    """
-    Класс «Прямоугольник» наследуется от класса «Геометрическая фигура».
-    """
+    
     FIGURE_TYPE = "Прямоугольник"
 
-    def __init__(self, color_parameter, width_parameter, height_parameter):
-        """
-        Класс должен содержать конструктор по параметрам «ширина», «высота» и «цвет». В конструкторе создается объект класса «Цвет фигуры» для хранения цвета.
-        """
-        self.width = width_parameter
-        self.height = height_parameter
-        self.figure_color = FigureColor()
-        self.figure_color.set_color(color_parameter)
-
+    def __init__(self, color_parameter: str, width_parameter: float, height_parameter: float):
+        if width_parameter <= 0 or height_parameter <=0:
+            raise ValueError("Ширина и высота должны быть положительными числами")
+        self._width = width_parameter
+        self._height = height_parameter
+        self._figure_color = FigureColor(color_parameter)
+    
     @classmethod
     def get_name(cls):
         return cls.FIGURE_TYPE
     
+    def get_color(self):
+        return self._figure_color.get_color()
+    
+    def get_width(self):
+        return self._width
+    
+    def get_height(self):
+        return self._height
+    
     def square(self):
-        """
-        Класс должен переопределять метод, вычисляющий площадь фигуры.
-        """
-        return self.width*self.height
+        return self._width*self._height
 
     def __repr__(self):
         return '{} {} цвета шириной {} и высотой {} площадью {}.'.format(
             Rectangle.get_name(),
-            self.figure_color.get_color(),
-            self.width,
-            self.height,
+            self._figure_color.get_color(),
+            self._width,
+            self._height,
             self.square()
         )

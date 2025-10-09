@@ -2,19 +2,20 @@ from abc import ABC, abstractmethod
 
 
 class Figure(ABC):
-    """
-    Абстрактный класс «Геометрическая фигура»
-    """
+
     @abstractmethod
-    def square(self):
-        """
-        содержит виртуальный метод для вычисления площади фигуры.
-        """
+    def square(self) -> float:
         pass
+    
     @classmethod
     @abstractmethod
-    def get_name(cls):
+    def get_name(cls) -> str:
         pass
+    
     @abstractmethod
-    def __repr__(self):
+    def get_color(self) -> str:
+        pass
+
+    @abstractmethod
+    def __repr__(self) -> str:
         pass
