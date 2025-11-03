@@ -255,3 +255,20 @@ if __name__ == '__main__':
     with cm_timer_1():
         f4(f3(f2(f1(data))))
 ```
+
+# Теория
+
+{key: value for element in iterable if condition} - генератор словаря с условием
+``` python
+# Пример 1: Фильтрация четных чисел
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+even_dict = {num: num**2 for num in numbers if num % 2 == 0}
+print(even_dict)
+# Вывод: {2: 4, 4: 16, 6: 36, 8: 64, 10: 100}
+
+# Пример 2: Условие с elif
+numbers = [1, 2, 3, 4, 5]
+conditional_dict = {num: num**2 if num % 2 == 0 else "Odd" for num in numbers}
+print(conditional_dict)
+# Вывод: {1: 'Odd', 2: 4, 3: 'Odd', 4: 16, 5: 'Odd'}
+```
