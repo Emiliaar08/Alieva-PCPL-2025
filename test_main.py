@@ -1,4 +1,3 @@
-# test_main.py
 import pytest
 from pytest_unordered import unordered
 
@@ -17,11 +16,11 @@ def test_one_to_many_data():
     ]
     
     browsers = [
-        Browser(1, 'Arc', '1.0', 320, 1),
-        Browser(2, 'Chrome', '120.0', 512, 1),
-        Browser(3, 'Firefox', '115.0', 256, 2),
-        Browser(4, 'Alphabet', '1.0', 128, 3),
-        Browser(5, 'Opera', '105.0', 192, 2),
+        Browser(1, 'Arc', '1.0', 320, 1),      # Dell XPS 15
+        Browser(2, 'Chrome', '120.0', 512, 1), # Dell XPS 15
+        Browser(3, 'Firefox', '115.0', 256, 2), # HP Pavilion
+        Browser(4, 'Alphabet', '1.0', 128, 3), # Lenovo ThinkPad
+        Browser(5, 'Opera', '105.0', 192, 2),  # HP Pavilion
     ]
     
     return computers, browsers
@@ -74,12 +73,17 @@ def test_first_query(test_one_to_many_data):
     assert result[1][0] == 'Arc'
 
 def test_second_query(test_one_to_many_data):
+    """Тест второго запроса: минимальная память браузеров на каждом компьютере"""
     computers, browsers = test_one_to_many_data
     
+    # Правильные ожидаемые значения:
+    # 1. Lenovo ThinkPad: только Alphabet (128 МБ) → min = 128
+    # 2. HP Pavilion: Firefox (256 МБ) и Opera (192 МБ) → min = 192  
+    # 3. Dell XPS 15: Arc (320 МБ) и Chrome (512 МБ) → min = 320
     expected = [
         ('Lenovo ThinkPad', 128),
+        ('HP Pavilion', 192),
         ('Dell XPS 15', 320),
-        ('HP Pavilion', 256),
     ]
     
     result = second_query(computers, browsers)
@@ -109,6 +113,7 @@ def test_third_query(test_many_to_many_data):
     for item in result:
         assert "Dell" in item[3] or "Apple" in item[3]
     
+    # Проверка сортировки по названию браузера
     browser_names = [item[0] for item in result]
     sorted_browser_names = sorted(browser_names)
     assert browser_names == sorted_browser_names

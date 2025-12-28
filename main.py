@@ -1,6 +1,7 @@
 from typing import List, Any, Callable
 from dataclasses import dataclass
 from operator import itemgetter
+
 @dataclass
 class Computer:
     """Класс для представления компьютера"""
@@ -8,6 +9,7 @@ class Computer:
     model: str
     processor: str
     ram_gb: int
+
 @dataclass
 class Browser:
     """Класс для представления браузера"""
@@ -16,6 +18,7 @@ class Browser:
     version: str
     memory_usage: int
     computer_id: int
+
 @dataclass
 class ComputerBrowser:
     """Класс для реализации отношения многие ко многим"""
@@ -65,14 +68,15 @@ def print_data(data: List[Any], headers: List[str], title: str, column_width: in
     columns = len(headers)
     
     print(f"{title:=^{total_length}}")
-    print(("{:<" + str(column_width) + "}") * columns).format(*headers)
+    # ИСПРАВЛЕНИЕ: правильное использование format внутри print
+    print((("{:<" + str(column_width) + "}") * columns).format(*headers))
     print()
     
     for row in data:
         if isinstance(row, tuple):
-            print(("{:<" + str(column_width) + "}") * columns).format(*row)
+            print((("{:<" + str(column_width) + "}") * columns).format(*row))
         else:
-            print(("{:<" + str(column_width) + "}") * columns).format(row)
+            print((("{:<" + str(column_width) + "}") * columns).format(row))
     print()
 
 def first_query(computers: List[Computer], browsers: List[Browser]) -> List[Any]:
