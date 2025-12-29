@@ -1,0 +1,34 @@
+[
+  {
+    "job-name": "Программист Python",
+    "location": "Москва"
+  },
+  {
+    "job-name": "Программист Java",
+    "location": "Санкт-Петербург"
+  },
+  {
+    "job-name": "Аналитик данных",
+    "location": "Москва"
+  },
+  {
+    "job-name": "Программист C++",
+    "location": "Новосибирск"
+  },
+  {
+    "job-name": "Дизайнер",
+    "location": "Москва"
+  },
+  {
+    "job-name": "Программист Python",
+    "location": "Казань"
+  },
+  {
+    "job-name": "Менеджер проекта",
+    "location": "Москва"
+  },
+  {
+    "job-name": "программист JavaScript",
+    "location": "Екатеринбург"
+  }
+]
